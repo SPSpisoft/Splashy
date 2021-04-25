@@ -20,10 +20,18 @@
 Add this in your app's build.gradle file:
 ```groovy
 dependencies {
-  implementation 'com.rbddevs.splashy:splashy:1.3.0'
+  implementation 'com.github.SPSpisoft:Splashy:2.0.0'
+  //implementation 'com.rbddevs.splashy:splashy:1.3.0'
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72+" // For JAVA Only
 }
 ```
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 
 Or add Splashy as a new dependency inside your pom.xml
 
