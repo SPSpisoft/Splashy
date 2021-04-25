@@ -1,9 +1,7 @@
 package com.rbddevs.splashy
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Typeface
 import android.widget.ImageView
 
 class Splashy(private var activity: Activity) {
@@ -281,9 +279,12 @@ class Splashy(private var activity: Activity) {
         return this
     }
 
+    //    *************************************** Splash Screen Retry *********************************************************
 
-
-
+    fun setRetryIcon(logo: Int): Splashy {
+        intent.putExtra(SplashyActivity.RETRY_ICON, logo)
+        return this
+    }
 
     //    *************************************** Splash Screen Mix *********************************************************
 
@@ -380,7 +381,19 @@ class Splashy(private var activity: Activity) {
             SplashyActivity.hideSplashy()
         }
 
+//        fun onPause(getComplete: OnComplete) {
+//            val splashy = SplashyActivity()
+//            splashy.setOnComplete(getComplete)
+//        }
 
+        fun retry() {
+            SplashyActivity.pauseSplashy()
+        }
+
+        fun onRetryClick(getOnRetry: OnRetry) {
+            val splashy = SplashyActivity()
+            splashy.setOnRetryClick(getOnRetry)
+        }
 
     }
 
@@ -394,5 +407,7 @@ class Splashy(private var activity: Activity) {
         fun onComplete()
     }
 
-
+    interface OnRetry {
+        fun onRetry()
+    }
 }

@@ -57,6 +57,9 @@ internal class SplashyActivity : AppCompatActivity() {
         internal const val LOGO_HEIGHT = "logo_height"
         internal const val LOGO_SCALE_TYPE = "logo_scale_type"
 
+        // Retry
+        internal const val RETRY_ICON = "retry_icon"
+
         // Animation
         internal const val ANIMATION_TYPE = "animation_type"
         internal const val ANIMATION_DURATION = "animation_duration"
@@ -79,6 +82,7 @@ internal class SplashyActivity : AppCompatActivity() {
 
         // on OnComplete listener
         internal var onComplete: Splashy.OnComplete? = null
+        internal var onRetry: Splashy.OnRetry? = null
 
         internal lateinit var activity: SplashyActivity
 
@@ -91,7 +95,17 @@ internal class SplashyActivity : AppCompatActivity() {
             activity.finish()
         }
 
+        internal fun pauseSplashy() {
+            //  instance.finishAffinity()
+            this.activity.pbLoad.visibility = View.GONE
+            this.activity.vRetry.visibility = View.VISIBLE
+        }
 
+        internal fun resumeSplashy() {
+            //  instance.finishAffinity()
+            this.activity.pbLoad.visibility = View.VISIBLE
+            this.activity.vRetry.visibility = View.GONE
+        }
     }
 
     var progressVisible = false
@@ -105,6 +119,8 @@ internal class SplashyActivity : AppCompatActivity() {
 
 
         setLogo()
+
+        setRetry()
 
         setTitle()
 
@@ -128,6 +144,18 @@ internal class SplashyActivity : AppCompatActivity() {
 
     }
 
+    private fun setRetry(){
+        if (intent.hasExtra(RETRY_ICON)) {
+            imRetry.setImageResource(intent.getIntExtra(RETRY_ICON, android.R.drawable.ic_menu_revert))
+        } else {
+            ivLogo.setImageResource(android.R.drawable.ic_menu_revert)
+        }
+
+        vRetry.setOnClickListener{
+            onRetry?.onRetry()
+        }
+    }
+
 
     private fun setLogo() {
         val applicationInfo: ApplicationInfo = applicationInfo
@@ -136,12 +164,10 @@ internal class SplashyActivity : AppCompatActivity() {
             if (!intent.getBooleanExtra(SHOW_LOGO, true)) ivLogo.visibility = View.GONE
         }
 
-
         if (intent.hasExtra(LOGO)) {
             ivLogo.setImageResource(intent.getIntExtra(LOGO, applicationInfo.icon))
         } else {
             ivLogo.setImageResource(applicationInfo.icon)
-
         }
 
         if (intent.hasExtra(LOGO_WIDTH) || intent.hasExtra(LOGO_HEIGHT)) {
@@ -276,7 +302,14 @@ internal class SplashyActivity : AppCompatActivity() {
                 ContextCompat.getColor(this, color),
                 PorterDuff.Mode.SRC_IN
             )
+            imRetry.setColorFilter(
+                ContextCompat.getColor(this, color),
+                PorterDuff.Mode.SRC_IN
+            )
+
+            tvRetry.setTextColor(ContextCompat.getColor(this, color))
         }
+
         if (intent.hasExtra(PROGRESS_COLOR_VALUE)) {
             val color = intent.getStringExtra(PROGRESS_COLOR_VALUE)
             pbLoad.indeterminateDrawable.setColorFilter(
@@ -514,7 +547,10 @@ internal class SplashyActivity : AppCompatActivity() {
 
     internal fun setOnComplete(getComplete: Splashy.OnComplete) {
         onComplete = getComplete
+    }
 
+    internal fun setOnRetryClick(getOnRetry: Splashy.OnRetry) {
+        onRetry = getOnRetry
     }
 
     private fun showSplashy() {
@@ -528,6 +564,5 @@ internal class SplashyActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {}
-
 
 }

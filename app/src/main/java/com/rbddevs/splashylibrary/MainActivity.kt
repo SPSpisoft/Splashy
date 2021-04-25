@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
     private fun setSplashy() {
         Splashy(this)
             .setLogo(R.drawable.splashy)
+            .setRetryIcon(R.drawable.ic_baseline_replay_24)
             .setAnimation(Splashy.Animation.GROW_LOGO_FROM_CENTER)
+            .showProgress(true)
             .setBackgroundResource(R.color.black)
             .setTitleColor(R.color.white)
-            .setProgressColor(R.color.white)
+            .setProgressColor(R.color.colorPrimary)
             .setTitle(R.string.splashy)
             .setSubTitle(R.string.splash_screen_made_easy)
             .setFullScreen(true)
@@ -35,7 +37,13 @@ class MainActivity : AppCompatActivity() {
             override fun onComplete() {
                 Toast.makeText(this@MainActivity, "Welcome", Toast.LENGTH_SHORT).show()
             }
+        })
 
+        Splashy.onRetryClick(object : Splashy.OnRetry {
+            override fun onRetry() {
+                Toast.makeText(this@MainActivity, "retry", Toast.LENGTH_SHORT).show()
+                setSplashy()
+            }
         })
     }
 
@@ -43,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         setSplashy()
         // Hides after 1sec
         Handler().postDelayed({
-            Splashy.hide()
+            Splashy.retry()
         }, 1000)
     }
 
