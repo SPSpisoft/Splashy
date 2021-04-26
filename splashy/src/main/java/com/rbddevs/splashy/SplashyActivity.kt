@@ -565,9 +565,8 @@ internal class SplashyActivity : AppCompatActivity() {
         }, time)
     }
 
-
-    override fun onBackPressed() {
-        finish()
-    }
+//    override fun onBackPressed() {
+//        finish()
+//    }
 
 }
