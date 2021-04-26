@@ -95,8 +95,10 @@ internal class SplashyActivity : AppCompatActivity() {
             activity.finish()
         }
 
-        internal fun pauseSplashy() {
+        internal fun pauseSplashy(textFail: String, icon: Int) {
             //  instance.finishAffinity()
+            this.activity.imRetryFail.setImageResource(icon)
+            this.activity.tvRetryFail.text = textFail
             this.activity.pbLoad.visibility = View.GONE
             this.activity.vRetry.visibility = View.VISIBLE
         }
@@ -109,6 +111,7 @@ internal class SplashyActivity : AppCompatActivity() {
     }
 
     var progressVisible = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -563,6 +566,8 @@ internal class SplashyActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        finish()
+    }
 
 }

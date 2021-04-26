@@ -386,8 +386,11 @@ class Splashy(private var activity: Activity) {
 //            splashy.setOnComplete(getComplete)
 //        }
 
-        fun retry() {
-            SplashyActivity.pauseSplashy()
+        fun retry(set: Boolean, text: String, icon: Int) {
+            if(set)
+                SplashyActivity.pauseSplashy(text, icon)
+            else
+                SplashyActivity.resumeSplashy()
         }
 
         fun onRetryClick(getOnRetry: OnRetry) {

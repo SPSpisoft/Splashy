@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         setSplashy()
         // Hides after 1sec
         Handler().postDelayed({
-            Splashy.retry()
+            Splashy.retry(true, "Connection fail", R.drawable.ic_test)
         }, 1000)
     }
 
