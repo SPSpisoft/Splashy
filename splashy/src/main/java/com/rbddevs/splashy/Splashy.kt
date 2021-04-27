@@ -377,8 +377,8 @@ class Splashy(private var activity: Activity) {
         /**
          * This hides Splash screen
          */
-        fun hide(close: Boolean) {
-            SplashyActivity.hideSplashy(close)
+        fun hide(stop: Boolean) {
+            SplashyActivity.hideSplashy(stop)
         }
 
 //        fun onPause(getComplete: OnComplete) {
