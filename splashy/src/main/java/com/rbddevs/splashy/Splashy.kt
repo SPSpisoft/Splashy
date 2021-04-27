@@ -377,8 +377,8 @@ class Splashy(private var activity: Activity) {
         /**
          * This hides Splash screen
          */
-        fun hide() {
-            SplashyActivity.hideSplashy()
+        fun hide(close: Boolean) {
+            SplashyActivity.hideSplashy(close)
         }
 
 //        fun onPause(getComplete: OnComplete) {
@@ -407,7 +407,7 @@ class Splashy(private var activity: Activity) {
      *
      */
     interface OnComplete {
-        fun onComplete()
+        fun onComplete(close: Boolean)
     }
 
     interface OnRetry {

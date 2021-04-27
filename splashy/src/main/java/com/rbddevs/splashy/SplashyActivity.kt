@@ -86,10 +86,10 @@ internal class SplashyActivity : AppCompatActivity() {
 
         internal lateinit var activity: SplashyActivity
 
-        internal fun hideSplashy() {
+        internal fun hideSplashy(close: Boolean) {
             //  instance.finishAffinity()
             if (onComplete != null) {
-                onComplete?.onComplete()
+                onComplete?.onComplete(close)
                 onComplete = null
             }
             activity.finish()
@@ -559,7 +559,7 @@ internal class SplashyActivity : AppCompatActivity() {
     private fun showSplashy() {
         Handler().postDelayed({
             if (onComplete != null) {
-                onComplete?.onComplete()
+                onComplete?.onComplete(false)
             }
             finish()
         }, time)

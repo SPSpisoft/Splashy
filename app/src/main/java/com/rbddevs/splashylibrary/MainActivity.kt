@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.rbddevs.splashy.Splashy
+import com.rbddevs.splashy.Splashy.Companion.hide
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             .show()
 
         Splashy.onComplete(object : Splashy.OnComplete {
-            override fun onComplete() {
+            override fun onComplete(close: Boolean) {
                 Toast.makeText(this@MainActivity, "Welcome", Toast.LENGTH_SHORT).show()
             }
         })
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         Splashy.onRetryClick(object : Splashy.OnRetry {
             override fun onRetry() {
                 Toast.makeText(this@MainActivity, "retry", Toast.LENGTH_SHORT).show()
+                hide(true)
                 setSplashy()
             }
         })
